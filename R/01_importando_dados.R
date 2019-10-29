@@ -4,11 +4,11 @@
 #### PACOTES UTITLIZADOS -----
 library(tidyverse)
 
-#### IMPORTANDO E LIMPANDO DADOS BRUTOS ----
+#### IMPORTANDO DADOS BRUTOS -------------------------------
 data_idh <- read.csv("data/raw/hdi_human_development_index.csv")
 data_edu <- read.csv("data/raw/expenditure_per_student_primary_percent_of_gdp_per_person.csv")
 
-#### LIMPANDO DADOS ---
+#### LIMPEZA INICIAL ----------------------------------------
 # TRANSFORMANDO PARA TIDY DATA
 dat_idh <- data_idh %>% 
   pivot_longer(cols = -country, names_to = "year",
@@ -24,7 +24,7 @@ dat_edu$year <-as.numeric(gsub(pattern = "X", replacement = "",
                                x = dat_edu$year))
 
 
-# EDUCATION - basic checks
+# EDUCATION - basic checks --------------------------------------------
 nrow(dat_edu)             # How many rows
 str(dat_edu)              # Variables classes
 attributes(dat_edu)       # Attributres
@@ -32,7 +32,7 @@ head(dat_edu)             # First rows
 any(duplicated(dat_edu))  # There is any duplicated rows?
 any(is.na(dat_edu))       # There are NAs in the data?
 
-# IDH - basic checks 
+# IDH - basic checks -----------------------------------------------------
 nrow(dat_idh)             # How many rows
 str(dat_idh)              # Variables classes
 attributes(dat_idh)       # Attributres
@@ -41,7 +41,7 @@ any(duplicated(dat_idh))  # There is any duplicated rows?
 any(is.na(dat_idh))       # There are NAs in the data?  
   
 
-# checking NAs
+# checking NAs --------------------------------------------------------
 inspectdf::inspect_na(dat_edu) # Percentage of NA in each columns
 inspectdf::inspect_na(dat_idh) # Percentage of NA in each columns
 
@@ -54,7 +54,7 @@ inspectdf::inspect_na(dat_edu) # Percentage of NA in each columns
 inspectdf::inspect_na(dat_idh) # Percentage of NA in each columns
 
 
-## SELECIONANDO PAISES
+## SELECIONANDO PAISES -------------------------------------------------
 edu  <- filter(dat_edu, country %in% c("Brazil", "Argentina", "Uruguay",
                                      "Paraguay", "Peru", "Bolivia",
                                      "Chile", "Colombia", "Ecuador",
@@ -66,11 +66,9 @@ idh  <- filter(dat_idh, country %in% c("Brazil", "Argentina", "Uruguay",
                                        "Venezuela", "Guyana", "Suriname"))
 
 
-## CRIANDO UM UNICO BANCO DE DADOS
+## CRIANDO UM UNICO BANCO DE DADOS -------------------------------------
 dat <- left_join(x = edu, y = idh, by = c("country","year"))
 colnames(dat) <- c("country", "year", "edu", "idh")
 head(dat)
 
-########
-
-
+######## FIM ---
