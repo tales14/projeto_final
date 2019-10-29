@@ -1,2 +1,6 @@
-# projeto_final
-Projeto final para a disciplina Gráficos científicos no R
+# PROJETO FINAL - GRÁFICOS CIENTÍFICOS NO R
+## ALUNO: Tales Martins de Alencar Paiva [@talesecology](https://twitter.com/talesecology)
+
+-------
+
+
