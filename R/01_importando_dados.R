@@ -69,7 +69,8 @@ idh  <- filter(dat_idh, country %in% c("Brazil", "Argentina", "Uruguay",
 ## CRIANDO UM UNICO BANCO DE DADOS -------------------------------------
 dat <- left_join(x = edu, y = idh, by = c("country","year"))
 colnames(dat) <- c("country", "year", "edu", "idh")
-head(dat)
+dat <- na.omit(dat)
 
-write.csv(x = dat, file = "data/processed/dat.csv")
+write.csv(x = dat, file = "data/processed/dat.csv", row.names = F)
+
 ######## FIM ---
