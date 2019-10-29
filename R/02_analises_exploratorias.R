@@ -79,12 +79,12 @@ idh_1 <-
   theme_bw(base_size = 20)
 
 ## SALVANDO OS GRAFICOS EXPLORATORIOS ----------
-ggsave(plot = idh, filename = "outputs/figures/01_Exp_IDH_BR.png",
+ggsave(plot = idh, filename = "outputs/supp//01_Exp_IDH_BR.png",
       width = 12, height = 8)
-ggsave(plot = idh_1, filename = "outputs/figures/02_Exp_IDH_BR.png",
+ggsave(plot = idh_1, filename = "outputs/supp//02_Exp_IDH_BR.png",
        width = 12, height = 8)
-ggsave(plot = edu, filename = "outputs/figures/03_Exp_EDU_BR.png",
+ggsave(plot = edu, filename = "outputs/supp//03_Exp_EDU_BR.png",
        width = 12, height = 8)
-ggsave(plot = edu_1, filename = "outputs/figures/04_Exp_EDU_BR.png",
+ggsave(plot = edu_1, filename = "outputs/supp//04_Exp_EDU_BR.png",
        width = 12, height = 8)
 
