@@ -71,4 +71,5 @@ dat <- left_join(x = edu, y = idh, by = c("country","year"))
 colnames(dat) <- c("country", "year", "edu", "idh")
 head(dat)
 
+write.csv(x = dat, file = "data/processed/dat.csv")
 ######## FIM ---
