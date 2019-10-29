@@ -5,12 +5,12 @@
 library(tidyverse)
 
 #### IMPORTANDO E LIMPANDO DADOS BRUTOS ----
-data_mur <- read.csv("data/raw/murder_total.csv")
-data_edu <- read.csv("data/raw/expenditure_per_student_secondary_percent_of_gdp_per_person.csv")
+data_idh <- read.csv("data/raw/hdi_human_development_index.csv")
+data_edu <- read.csv("data/raw/expenditure_per_student_primary_percent_of_gdp_per_person.csv")
 
 #### LIMPANDO DADOS ---
 # TRANSFORMANDO PARA TIDY DATA
-dat_mur <- data_mur %>% 
+dat_idh <- data_idh %>% 
   pivot_longer(cols = -country, names_to = "year",
                values_to = "n")
 dat_edu <- data_edu %>% 
@@ -18,13 +18,59 @@ dat_edu <- data_edu %>%
                values_to = "n")
 
 # CORRIGINDO O NOME DA VARIAVEL 'year'
-dat_mur$year <-as.numeric(gsub(pattern = "X", replacement = "",
-                               x = dat_mur$year))
+dat_idh$year <-as.numeric(gsub(pattern = "X", replacement = "",
+                               x = dat_idh$year))
 dat_edu$year <-as.numeric(gsub(pattern = "X", replacement = "",
                                x = dat_edu$year))
 
 
+# EDUCATION - basic checks
+nrow(dat_edu)             # How many rows
+str(dat_edu)              # Variables classes
+attributes(dat_edu)       # Attributres
+head(dat_edu)             # First rows
+any(duplicated(dat_edu))  # There is any duplicated rows?
+any(is.na(dat_edu))       # There are NAs in the data?
+
+# IDH - basic checks 
+nrow(dat_idh)             # How many rows
+str(dat_idh)              # Variables classes
+attributes(dat_idh)       # Attributres
+head(dat_idh)             # First rows
+any(duplicated(dat_idh))  # There is any duplicated rows?
+any(is.na(dat_idh))       # There are NAs in the data?  
   
-  
+
+# checking NAs
+inspectdf::inspect_na(dat_edu) # Percentage of NA in each columns
+inspectdf::inspect_na(dat_idh) # Percentage of NA in each columns
+
+# Remove NAs
+dat_edu <- na.omit(dat_edu)
+dat_idh <- na.omit(dat_idh)
+
+# Check NAs
+inspectdf::inspect_na(dat_edu) # Percentage of NA in each columns
+inspectdf::inspect_na(dat_idh) # Percentage of NA in each columns
+
+
+## SELECIONANDO PAISES
+edu  <- filter(dat_edu, country %in% c("Brazil", "Argentina", "Uruguay",
+                                     "Paraguay", "Peru", "Bolivia",
+                                     "Chile", "Colombia", "Ecuador",
+                                     "Venezuela", "Guyana", "Suriname"))
+               
+idh  <- filter(dat_idh, country %in% c("Brazil", "Argentina", "Uruguay",
+                                       "Paraguay", "Peru", "Bolivia",
+                                       "Chile", "Colombia", "Ecuador",
+                                       "Venezuela", "Guyana", "Suriname"))
+
+
+## CRIANDO UM UNICO BANCO DE DADOS
+dat <- left_join(x = edu, y = idh, by = c("country","year"))
+colnames(dat) <- c("country", "year", "edu", "idh")
+head(dat)
+
+########
 
 
