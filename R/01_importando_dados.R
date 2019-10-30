@@ -66,7 +66,7 @@ idh  <- filter(dat_idh, country %in% c("Brazil", "Argentina", "Uruguay",
                                        "Venezuela", "Guyana", "Suriname"))
 
 
-## CRIANDO UM UNICO BANCO DE DADOS -------------------------------------
+## CRIANDO UM UNICO BANCO DE DADOS PROCESSADOS -------------------------------------
 dat <- left_join(x = edu, y = idh, by = c("country","year"))
 colnames(dat) <- c("country", "year", "edu", "idh")
 dat <- na.omit(dat)
