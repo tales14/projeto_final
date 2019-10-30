@@ -4,7 +4,7 @@
 library(tidyverse)
 
 ### IMPORTANDO BANCO DE DADOS LIMPOS
-dat <- read.csv("data/processed/dat.csv")
+ms <- read.csv("data/processed/dat_ms.csv")
 
 ## TESTE DE CORRELACAO ENTRE O INVESTIMENTO EM EDUCACAO E O IDH
 cor.test(ms$edu, ms$idh)

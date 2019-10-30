@@ -3,15 +3,12 @@
 ## PACOTES
 library(tidyverse)
 
-## IMPORTANDO DO BANCO DE DADOS LIMPO ------------------------------
-dat <- read.csv(file = "data/processed/dat.csv")
+## IMPORTANDO DO BANCO DE DADOS LIMPO PARA O MERCOSUL-----------------
+ms <- read.csv(file = "data/processed/dat_ms.csv")
 
-## ANALISES EXPLORATORIAS-------------------------------------
+# 1. ANALISES EXPLORATORIAS-----
 
-# selecionando paises do Mercosul
-ms <- filter(dat, country %in% c("Brazil", "Argentina", "Uruguay", "Paraguay"))
-
-#### GRAFICOS EXPLORATORIOS DO INVESTIMENTO EM EDUCACAO
+#### 1.1 GRAFICOS EXPLORATORIOS DO INVESTIMENTO EM EDUCACAO --------
 edu <- 
   ggplot(ms, aes(x = year, y = edu, color = country)) +
   geom_point(size = 2) +
@@ -21,7 +18,7 @@ edu <-
   labs(x = "Ano", y = "Investimento em ensino primário por estudante") +
   theme_bw(base_size = 20)
 
-#### GRAFICOS EXPLORATORIOS DO IDH ---------
+#### 1.2 GRAFICOS EXPLORATORIOS DO IDH ---------
 idh <- 
   ggplot(ms, aes(x = year, y = idh, color = country)) +
   geom_point(size = 2) +
@@ -32,7 +29,7 @@ idh <-
   theme_bw(base_size = 20)
 
 
-## SALVANDO OS GRAFICOS EXPLORATORIOS SUPLEMENTARES ----------
+## 2. SALVANDO OS GRAFICOS EXPLORATORIOS SUPLEMENTARES ----------
 ggsave(plot = idh, filename = "outputs/supp//01_Exp_IDH_BR.png",
       width = 12, height = 8)
 ggsave(plot = edu, filename = "outputs/supp//03_Exp_EDU_BR.png",
